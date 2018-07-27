@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './navMenu.css';
+
 class NavMenu extends Component {
   render() {
     return (
@@ -27,4 +28,5 @@ class NavMenu extends Component {
     );
   }
 }
+
 export default NavMenu;
