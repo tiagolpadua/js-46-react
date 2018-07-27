@@ -39,7 +39,7 @@ class App extends Component {
                     onInput={event =>
                       this.setState({ novoTweet: event.target.value })
                     }
-                    placeholder="O	que	está	acontecendo?"
+                    placeholder="O que está acontecendo?"
                   />
                 </div>
                 <button
