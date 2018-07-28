@@ -4,7 +4,7 @@ import NavMenu from '../../components/NavMenu';
 import Dashboard from '../../components/Dashboard';
 import Widget from '../../components/Widget';
 import TrendsArea from '../../components/TrendsArea';
-import Tweet from '../../components/Tweet';
+import Tweet from '../../containers/TweetPadrao';
 import Modal from '../../components/Modal';
 import PropTypes from 'prop-types';
 import * as TweetsAPI from '../../api/TweetsAPI';
@@ -51,10 +51,6 @@ class Home extends Component {
 
   componentDidMount() {
     this.context.store.dispatch(TweetsAPI.carrega());
-  }
-
-  removeTweet(idTweetQueVaiSerRemovido) {
-    this.context.store.dispatch(TweetsAPI.remove(idTweetQueVaiSerRemovido));
   }
 
   adicionaTweet(event) {
@@ -122,7 +118,6 @@ class Home extends Component {
                 {this.state.tweets.map((tweetInfo, index) => (
                   <Tweet
                     key={tweetInfo._id}
-                    removeHandler={event => this.removeTweet(tweetInfo._id)}
                     texto={tweetInfo.conteudo}
                     handleAbreModalParaTweet={event =>
                       this.abreModalParaTweet(event, tweetInfo._id)
