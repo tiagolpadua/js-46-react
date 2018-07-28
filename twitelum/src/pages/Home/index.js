@@ -7,6 +7,7 @@ import TrendsArea from '../../components/TrendsArea';
 import Tweet from '../../components/Tweet';
 import Modal from '../../components/Modal';
 import PropTypes from 'prop-types';
+import * as TweetsAPI from '../../api/TweetsAPI';
 
 class Home extends Component {
   constructor() {
@@ -49,15 +50,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    fetch(
-      `https://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${localStorage.getItem(
-        'TOKEN'
-      )}`
-    )
-      .then(response => response.json())
-      .then(tweets => {
-        this.context.store.dispatch({ type: 'CARREGA_TWEETS', tweets });
-      });
+    this.context.store.dispatch(TweetsAPI.carrega());
   }
 
   removeTweet(idTweetQueVaiSerRemovido) {
