@@ -10,11 +10,45 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      novoTweet: ''
+      novoTweet: '',
+      tweets: []
     };
+    this.adicionaTweet = this.adicionaTweet.bind(this);
+    this.getTweets = this.getTweets.bind(this);
+  }
+
+  adicionaTweet(event) {
+    event.preventDefault();
+    const novoTweet = this.state.novoTweet;
+    const tweetsAntigos = this.state.tweets;
+    if (novoTweet) {
+      this.setState({
+        tweets: [novoTweet, ...tweetsAntigos],
+        novoTweet: ''
+      });
+    }
+  }
+
+  getTweets() {
+    if (this.state.tweets.length > 0) {
+      return this.state.tweets.map((tweetInfo, index) => (
+        <Tweet key={tweetInfo + index} texto={tweetInfo} />
+      ));
+    } else {
+      return <span>Crie um Tweet!</span>;
+    }
   }
 
   render() {
+    let tweets;
+    if (this.state.tweets.length > 0) {
+      tweets = this.state.tweets.map((tweetInfo, index) => (
+        <Tweet key={tweetInfo + index} texto={tweetInfo} />
+      ));
+    } else {
+      tweets = <span>Crie um Tweet!</span>;
+    }
+
     return (
       <Fragment>
         <Cabecalho>
@@ -23,7 +57,7 @@ class App extends Component {
         <div className="container">
           <Dashboard>
             <Widget>
-              <form className="novoTweet">
+              <form className="novoTweet" onSubmit={this.adicionaTweet}>
                 <div className="novoTweet__editorArea">
                   <span
                     className={`
@@ -58,7 +92,15 @@ class App extends Component {
           <Dashboard posicao="centro">
             <Widget>
               <div className="tweetsArea">
-                <Tweet />
+                {tweets}
+                {/* {this.getTweets()} */}
+                {/* {this.state.tweets.length > 0 ? (
+                  this.state.tweets.map((tweetInfo, index) => (
+                    <Tweet key={tweetInfo + index} texto={tweetInfo} />
+                  ))
+                ) : (
+                  <span>Crie um Tweet!</span>
+                )} */}
               </div>
             </Widget>
           </Dashboard>
