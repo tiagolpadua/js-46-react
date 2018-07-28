@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-
+import './cabecalho.css';
+import './navMenu.css';
 class Cabecalho extends Component {
   render() {
     return (
       <header className="cabecalho">
-        <div className="cabecalho__container container">
+        <div className="cabecalho__container	container">
           <h1 className="cabecalho__logo">
             <a href="">Twitelum</a>
           </h1>
@@ -13,7 +14,7 @@ class Cabecalho extends Component {
               <li className="navMenu__item">
                 <a className="navMenu__link">
                   Bem vindo(a): <br />
-                  <strong>@fulanodetal</strong>
+                  <strong>{this.props.usuario}</strong>
                 </a>
               </li>
               <li className="navMenu__item">
