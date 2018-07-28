@@ -5,17 +5,39 @@ import Dashboard from '../../components/Dashboard';
 import Widget from '../../components/Widget';
 import TrendsArea from '../../components/TrendsArea';
 import Tweet from '../../components/Tweet';
+import Modal from '../../components/Modal';
 
 class Home extends Component {
   constructor() {
     super();
     this.state = {
       novoTweet: '',
-      tweets: []
+      tweets: [],
+      tweetAtivo: {}
     };
     this.adicionaTweet = this.adicionaTweet.bind(this);
     this.getTweets = this.getTweets.bind(this);
   }
+
+  abreModalParaTweet = (event, IDtweetSelecionado) => {
+    const isTweetFooter = event.target.closest('.tweet__footer');
+    if (isTweetFooter) return false;
+    const tweetSelecionado = this.state.tweets.find(
+      tweet => tweet._id === IDtweetSelecionado
+    );
+    this.setState({
+      tweetAtivo: tweetSelecionado
+    });
+  };
+
+  fechaModal = event => {
+    const isModal = event.target.closest('.widget');
+    if (!isModal) {
+      this.setState({
+        tweetAtivo: {}
+      });
+    }
+  };
 
   componentDidMount() {
     fetch(
@@ -48,7 +70,8 @@ class Home extends Component {
           tweet => tweet._id !== idTweetQueVaiSerRemovido
         );
         this.setState({
-          tweets: listaDeTweetsAtualizada
+          tweets: listaDeTweetsAtualizada,
+          tweetAtivo: {} // Devemos passar um Objeto vazio
         });
       });
   }
@@ -136,6 +159,9 @@ class Home extends Component {
                     key={tweetInfo._id}
                     removeHandler={event => this.removeTweet(tweetInfo._id)}
                     texto={tweetInfo.conteudo}
+                    handleAbreModalParaTweet={event =>
+                      this.abreModalParaTweet(event, tweetInfo._id)
+                    }
                     tweetInfo={tweetInfo}
                   />
                 ))}
@@ -143,6 +169,22 @@ class Home extends Component {
             </Widget>
           </Dashboard>
         </div>
+        <Modal
+          fechaModal={this.fechaModal}
+          isAberto={!!this.state.tweetAtivo._id}
+        >
+          <Widget>
+            <Tweet
+              key={this.state.tweetAtivo._id}
+              removeHandler={event =>
+                this.removeTweet(this.state.tweetAtivo._id)
+              }
+              texto={this.state.tweetAtivo.conteudo || ''}
+              tweetInModal={true}
+              tweetInfo={this.state.tweetAtivo}
+            />
+          </Widget>
+        </Modal>
       </Fragment>
     );
   }
