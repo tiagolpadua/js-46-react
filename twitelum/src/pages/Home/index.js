@@ -6,6 +6,7 @@ import Widget from '../../components/Widget';
 import TrendsArea from '../../components/TrendsArea';
 import Tweet from '../../components/Tweet';
 import Modal from '../../components/Modal';
+import PropTypes from 'prop-types';
 
 class Home extends Component {
   constructor() {
@@ -40,9 +41,9 @@ class Home extends Component {
   };
 
   componentWillMount() {
-    window.store.subscribe(() => {
+    this.context.store.subscribe(() => {
       this.setState({
-        tweets: window.store.getState()
+        tweets: this.context.store.getState()
       });
     });
   }
@@ -55,7 +56,7 @@ class Home extends Component {
     )
       .then(response => response.json())
       .then(tweets => {
-        window.store.dispatch({ type: 'CARREGA_TWEETS', tweets });
+        this.context.store.dispatch({ type: 'CARREGA_TWEETS', tweets });
       });
   }
 
@@ -195,5 +196,9 @@ class Home extends Component {
     );
   }
 }
+
+Home.contextTypes = {
+  store: PropTypes.object
+};
 
 export default Home;

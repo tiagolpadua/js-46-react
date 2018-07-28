@@ -13,12 +13,15 @@ import registerServiceWorker from './registerServiceWorker';
 // Roteamento
 import { BrowserRouter } from 'react-router-dom';
 import Roteamento from './routes.js';
-import './store';
+import store from './store';
+import { Provider } from 'react-redux';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Roteamento />
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Roteamento />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );
 registerServiceWorker();
