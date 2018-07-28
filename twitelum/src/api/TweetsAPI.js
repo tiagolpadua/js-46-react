@@ -11,3 +11,26 @@ export const carrega = () => {
       });
   };
 };
+
+export const adiciona = novoTweet => {
+  return dispatch => {
+    if (novoTweet) {
+      fetch(
+        `https://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${localStorage.getItem(
+          'TOKEN'
+        )}`,
+        {
+          method: 'POST',
+          body: JSON.stringify({ conteudo: novoTweet })
+        }
+      )
+        .then(response => response.json())
+        .then(novoTweetRegistradoNoServer => {
+          dispatch({
+            type: 'ADICIONA_TWEET',
+            novoTweet: novoTweetRegistradoNoServer
+          });
+        });
+    }
+  };
+};

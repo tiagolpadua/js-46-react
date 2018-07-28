@@ -78,26 +78,10 @@ class Home extends Component {
 
   adicionaTweet(event) {
     event.preventDefault();
-    const novoTweet = this.state.novoTweet;
-    const tweetsAntigos = this.state.tweets;
-    if (novoTweet) {
-      fetch(
-        `https://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${localStorage.getItem(
-          'TOKEN'
-        )}`,
-        {
-          method: 'POST',
-          body: JSON.stringify({ conteudo: novoTweet })
-        }
-      )
-        .then(response => response.json())
-        .then(novoTweetRegistradoNoServer => {
-          this.setState({
-            tweets: [novoTweetRegistradoNoServer, ...tweetsAntigos],
-            novoTweet: ''
-          });
-        });
-    }
+    this.context.store.dispatch(TweetsAPI.adiciona(this.state.novoTweet));
+    this.setState({
+      novoTweet: ''
+    });
   }
 
   getTweets() {
