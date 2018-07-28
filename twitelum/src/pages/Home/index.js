@@ -17,6 +17,20 @@ class Home extends Component {
     this.getTweets = this.getTweets.bind(this);
   }
 
+  componentDidMount() {
+    fetch(
+      `https://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${localStorage.getItem(
+        'TOKEN'
+      )}`
+    )
+      .then(response => response.json())
+      .then(tweets => {
+        this.setState({
+          tweets
+        });
+      });
+  }
+
   adicionaTweet(event) {
     event.preventDefault();
     const novoTweet = this.state.novoTweet;
