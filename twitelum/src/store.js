@@ -24,6 +24,19 @@ function tweetsReducer(state = { lista: [], tweetAtivo: {} }, action = {}) {
       lista: listaDeTweetsAtualizada
     };
   }
+
+  if (action.type === 'REMOVE_TWEET_ATIVO') {
+    return {
+      ...state,
+      tweetAtivo: {}
+    };
+  }
+  if (action.type === 'ADD_TWEET_ATIVO') {
+    return {
+      ...state,
+      tweetAtivo: action.tweetSelecionado
+    };
+  }
   return state;
 }
 const store = createStore(tweetsReducer, applyMiddleware(thunk));
