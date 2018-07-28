@@ -13,6 +13,8 @@ import registerServiceWorker from './registerServiceWorker';
 // Roteamento
 import { BrowserRouter } from 'react-router-dom';
 import Roteamento from './routes.js';
+import './store';
+
 ReactDOM.render(
   <BrowserRouter>
     <Roteamento />
