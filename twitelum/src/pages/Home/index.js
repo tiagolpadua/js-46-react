@@ -22,10 +22,22 @@ class Home extends Component {
     const novoTweet = this.state.novoTweet;
     const tweetsAntigos = this.state.tweets;
     if (novoTweet) {
-      this.setState({
-        tweets: [novoTweet, ...tweetsAntigos],
-        novoTweet: ''
-      });
+      fetch(
+        `https://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${localStorage.getItem(
+          'TOKEN'
+        )}`,
+        {
+          method: 'POST',
+          body: JSON.stringify({ conteudo: novoTweet })
+        }
+      )
+        .then(response => response.json())
+        .then(novoTweetRegistradoNoServer => {
+          this.setState({
+            tweets: [novoTweetRegistradoNoServer, ...tweetsAntigos],
+            novoTweet: ''
+          });
+        });
     }
   }
 
@@ -40,15 +52,6 @@ class Home extends Component {
   }
 
   render() {
-    let tweets;
-    if (this.state.tweets.length > 0) {
-      tweets = this.state.tweets.map((tweetInfo, index) => (
-        <Tweet key={tweetInfo + index} texto={tweetInfo} />
-      ));
-    } else {
-      tweets = <span>Crie um Tweet!</span>;
-    }
-
     return (
       <Fragment>
         <Cabecalho>
@@ -92,15 +95,13 @@ class Home extends Component {
           <Dashboard posicao="centro">
             <Widget>
               <div className="tweetsArea">
-                {tweets}
-                {/* {this.getTweets()} */}
-                {/* {this.state.tweets.length > 0 ? (
-                  this.state.tweets.map((tweetInfo, index) => (
-                    <Tweet key={tweetInfo + index} texto={tweetInfo} />
-                  ))
-                ) : (
-                  <span>Crie um Tweet!</span>
-                )} */}
+                {this.state.tweets.map((tweetInfo, index) => (
+                  <Tweet
+                    key={tweetInfo._id}
+                    texto={tweetInfo.conteudo}
+                    tweetInfo={tweetInfo}
+                  />
+                ))}
               </div>
             </Widget>
           </Dashboard>
