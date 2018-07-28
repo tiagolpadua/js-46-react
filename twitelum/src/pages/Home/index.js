@@ -40,8 +40,8 @@ class Home extends Component {
   componentWillMount() {
     this.context.store.subscribe(() => {
       this.setState({
-        tweets: this.context.store.getState().lista,
-        tweetAtivo: this.context.store.getState().tweetAtivo
+        tweets: this.context.store.getState().tweets.lista,
+        tweetAtivo: this.context.store.getState().tweets.tweetAtivo
       });
     });
   }
@@ -142,6 +142,11 @@ class Home extends Component {
             />
           </Widget>
         </Modal>
+        {this.context.store.getState().notificacao && (
+          <div className="notificacaoMsg">
+            {this.context.store.getState().notificacao}
+          </div>
+        )}
       </Fragment>
     );
   }
