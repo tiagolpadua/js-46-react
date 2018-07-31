@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Botao1 extends Component {
     render() {
         return (
-            <button class={`btn btn-${this.props.tipo}`}>
+            <button style={{color: this.props.cor}}>
                 {this.props.texto}
             </button>
         )
@@ -13,7 +13,7 @@ class Botao1 extends Component {
 class Botao2 extends Component {
     render() {
         return (
-            <button class={`btn btn-${this.props.tipo}`}>
+            <button style={{color: this.props.cor}}>
                 {this.props.children}
             </button>
         )
