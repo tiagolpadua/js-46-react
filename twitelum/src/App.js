@@ -13,11 +13,11 @@ class App extends Component {
       novoTweet: '',
       tweets: []
     };
-    this.adicionaTweet = this.adicionaTweet.bind(this);
-    this.getTweets = this.getTweets.bind(this);
+    // this.adicionaTweet = this.adicionaTweet.bind(this);
   }
 
-  adicionaTweet(event) {
+  // adicionaTweet(event) {
+  adicionaTweet = event => {
     event.preventDefault();
     const novoTweet = this.state.novoTweet;
     const tweetsAntigos = this.state.tweets;
@@ -40,14 +40,14 @@ class App extends Component {
   }
 
   render() {
-    let tweets;
-    if (this.state.tweets.length > 0) {
-      tweets = this.state.tweets.map((tweetInfo, index) => (
-        <Tweet key={tweetInfo + index} texto={tweetInfo} />
-      ));
-    } else {
-      tweets = <span>Crie um Tweet!</span>;
-    }
+    // let tweets;
+    // if (this.state.tweets.length > 0) {
+    //   tweets = this.state.tweets.map((tweetInfo, index) => (
+    //     <Tweet key={tweetInfo + index} texto={tweetInfo} />
+    //   ));
+    // } else {
+    //   tweets = <span>Crie um Tweet!</span>;
+    // }
 
     return (
       <Fragment>
@@ -92,8 +92,8 @@ class App extends Component {
           <Dashboard posicao="centro">
             <Widget>
               <div className="tweetsArea">
-                {tweets}
-                {/* {this.getTweets()} */}
+                {/* {tweets} */}
+                {this.getTweets()}
                 {/* {this.state.tweets.length > 0 ? (
                   this.state.tweets.map((tweetInfo, index) => (
                     <Tweet key={tweetInfo + index} texto={tweetInfo} />
