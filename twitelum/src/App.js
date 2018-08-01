@@ -1,4 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, {
+  Component,
+  Fragment
+} from 'react';
 import Cabecalho from './components/Cabecalho';
 import NavMenu from './components/NavMenu';
 import Dashboard from './components/Dashboard';
@@ -11,9 +14,28 @@ class App extends Component {
     super();
     this.state = {
       novoTweet: '',
-      tweets: []
+      tweets: [],
+      valor: 100
     };
-    // this.adicionaTweet = this.adicionaTweet.bind(this);
+  }
+
+  clickHandler = () => {
+    this.incrementa1();
+    this.incrementa1();
+    this.incrementa1();
+    // this.incrementa1();
+  }
+
+  incrementa0 = () => {
+    this.setState({
+      valor: this.state.valor + 1
+    });
+  }
+
+  incrementa1 = () => {
+    this.setState(state => ({
+      valor: state.valor + 1
+    }));
   }
 
   // adicionaTweet(event) {
@@ -31,11 +53,17 @@ class App extends Component {
 
   getTweets() {
     if (this.state.tweets.length > 0) {
-      return this.state.tweets.map((tweetInfo, index) => (
-        <Tweet key={tweetInfo + index} texto={tweetInfo} />
+      return this.state.tweets.map((tweetInfo, index) => (<
+        Tweet key={
+          tweetInfo + index
+        }
+        texto={
+          tweetInfo
+        }
+      />
       ));
     } else {
-      return <span>Crie um Tweet!</span>;
+      return <span > Crie um Tweet! < /span>;
     }
   }
 
@@ -49,65 +77,97 @@ class App extends Component {
     //   tweets = <span>Crie um Tweet!</span>;
     // }
 
-    return (
-      <Fragment>
-        <Cabecalho>
-          <NavMenu usuario="@omariosouto" />
-        </Cabecalho>
-        <div className="container">
-          <Dashboard>
-            <Widget>
-              <form className="novoTweet" onSubmit={this.adicionaTweet}>
-                <div className="novoTweet__editorArea">
-                  <span
-                    className={`
+    return ( <
+      Fragment >
+          <
+      Cabecalho >
+            <
+              NavMenu usuario="@omariosouto" />
+            <
+      /Cabecalho> <
+      div className="container" >
+              <
+      Dashboard >
+                <
+      Widget >
+                  <
+      form className="novoTweet"
+                    onSubmit={
+                      this.adicionaTweet
+                    } >
+                    <
+      div className="novoTweet__editorArea" >
+                      <
+      span className={
+                          `
 																	novoTweet__status
 																	${this.state.novoTweet.length > 140 ? 'novoTweet__status--invalido' : ''}
-													`}
-                  >
-                    {this.state.novoTweet.length}/140
-                  </span>
-                  <textarea
-                    className="novoTweet__editor"
-                    value={this.state.novoTweet}
-                    onInput={event =>
-                      this.setState({ novoTweet: event.target.value })
-                    }
-                    placeholder="O que está acontecendo?"
-                  />
-                </div>
-                <button
-                  className="novoTweet__envia"
-                  disabled={this.state.novoTweet.length > 140 ? true : false}
-                  type="submit"
-                >
-                  Tweetar
-                </button>
-              </form>
-            </Widget>
-            <Widget>
-              <TrendsArea />
-            </Widget>
-          </Dashboard>
-          <Dashboard posicao="centro">
-            <Widget>
-              <div className="tweetsArea">
-                {/* {tweets} */}
-                {this.getTweets()}
-                {/* {this.state.tweets.length > 0 ? (
-                  this.state.tweets.map((tweetInfo, index) => (
-                    <Tweet key={tweetInfo + index} texto={tweetInfo} />
-                  ))
-                ) : (
-                  <span>Crie um Tweet!</span>
-                )} */}
-              </div>
-            </Widget>
-          </Dashboard>
-        </div>
-      </Fragment>
-    );
-  }
-}
-
+													`
+                        } >
+                        {
+                          this.state.novoTweet.length
+                        }
+                        /140 <
+      /span> <
+                          textarea className="novoTweet__editor"
+                          value={
+                            this.state.novoTweet
+                          }
+                          onInput={
+                            event =>
+                              this.setState({
+                                novoTweet: event.target.value
+                              })
+                          }
+                          placeholder="O que está acontecendo?" /
+                        >
+                        <
+      /div> <
+      button className="novoTweet__envia"
+                          disabled={
+                            this.state.novoTweet.length > 140 ? true : false
+                          }
+                          type="submit" >
+                          Tweetar <
+      /button> <
+      button className="novoTweet__envia"
+                            onClick={
+                              this.clickHandler
+                            } >
+                            Incrementar: {
+                              this.state.valor
+                            } <
+      /button> <
+      /form> <
+      /Widget> <
+      Widget >
+                              <
+                                TrendsArea />
+                              <
+      /Widget> <
+      /Dashboard> <
+      Dashboard posicao="centro" >
+                                <
+      Widget >
+                                  <
+      div className="tweetsArea" > { /* {tweets} */} {
+                                      this.getTweets()
+                                    } {
+                                      /* {this.state.tweets.length > 0 ? (
+                                                        this.state.tweets.map((tweetInfo, index) => (
+                                                          <Tweet key={tweetInfo + index} texto={tweetInfo} />
+                                                        ))
+                                                      ) : (
+                                                        <span>Crie um Tweet!</span>
+                                                      )} */
+                                    } <
+      /div> <
+      /Widget> <
+      /Dashboard> <
+      /div> <
+      /Fragment>
+                                  );
+                                }
+                              }
+                              
 export default App;
