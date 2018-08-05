@@ -51,6 +51,31 @@ class Home extends Component {
     }
   }
 
+  jogar = bilhete => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let sorteado = Math.floor(Math.random() * 6) + 1; // entre 1 e 6
+        if (bilhete === sorteado) {
+          resolve(10000);
+        } else {
+          reject(sorteado);
+        }
+      }, 5);
+    });
+  };
+
+  onClickJogar = () => {
+    let bilhete = prompt('Digite um número entre 1 e 6');
+
+    this.jogar(parseInt(bilhete, 10))
+      .then(premio => {
+        window.alert(`Prêmio recebido: ${premio}`);
+      })
+      .catch(sorteado => {
+        window.alert(`Não foi dessa vez, o número sorteado foi: ${sorteado}`);
+      });
+  };
+
   render() {
     return (
       <Fragment>
@@ -85,6 +110,13 @@ class Home extends Component {
                   type="submit"
                 >
                   Tweetar
+                </button>
+
+                <button
+                  className="novoTweet__envia"
+                  onClick={this.onClickJogar}
+                >
+                  Jogar
                 </button>
               </form>
             </Widget>
