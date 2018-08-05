@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './navMenu.css';
+import { Link } from 'react-router-dom';
 
 class NavMenu extends Component {
   render() {
@@ -13,6 +14,7 @@ class NavMenu extends Component {
             </a>
           </li>
           <li className="navMenu__item">
+            <Link to="/login">xxxx</Link>
             <a className="navMenu__link" href="">
               Página Inicial
             </a>

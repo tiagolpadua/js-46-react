@@ -31,6 +31,14 @@ class Home extends Component {
       });
   }
 
+  componentDidUpdate() {
+    console.log('componentDidUpdate');
+  }
+
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+  }
+
   adicionaTweet(event) {
     event.preventDefault();
     const novoTweet = this.state.novoTweet;
