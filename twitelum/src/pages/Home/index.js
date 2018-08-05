@@ -18,6 +18,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    console.log('componentDidMount');
     fetch(
       `https://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${localStorage.getItem(
         'TOKEN'
@@ -25,6 +26,7 @@ class Home extends Component {
     )
       .then(response => response.json())
       .then(tweets => {
+        console.log('tweets recebidos');
         this.setState({
           tweets
         });
@@ -33,6 +35,10 @@ class Home extends Component {
 
   componentDidUpdate() {
     console.log('componentDidUpdate');
+  }
+
+  componentWillMount() {
+    console.log('componentWillMount');
   }
 
   componentWillUnmount() {
